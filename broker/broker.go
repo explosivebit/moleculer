@@ -35,7 +35,9 @@ func mergeConfigs(baseConfig moleculer.Config, userConfig []*moleculer.Config) m
 			if config.Services != nil {
 				baseConfig.Services = mergeMaps(baseConfig.Services, config.Services)
 			}
-
+			if config.Namespace != "" {
+				baseConfig.Namespace = config.Namespace
+			}
 			if config.LogLevel != "" {
 				baseConfig.LogLevel = config.LogLevel
 			}

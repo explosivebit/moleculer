@@ -167,7 +167,11 @@ func (pubsub *PubSub) createTransport() transit.Transport {
 		pubsub.logger.Info("Transporter: Memory")
 		transport = pubsub.createMemoryTransporter()
 	}
-	transport.SetPrefix("MOL")
+	if pubsub.broker.Config.Namespace != "" {
+		transport.SetPrefix("MOL-"+pubsub.broker.Config.Namespace)
+	} else {
+		transport.SetPrefix("MOL")
+	}
 	transport.SetNodeID(pubsub.broker.LocalNode().GetID())
 	transport.SetSerializer(pubsub.serializer)
 	return transport
